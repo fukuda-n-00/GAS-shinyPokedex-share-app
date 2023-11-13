@@ -166,9 +166,14 @@ function doPost(e){
   if(e.parameters.action_type == "search"){
     // 
     postedPokemonName_global = e.parameters.pokemon_name;
-    // postedPokemonId_global = getPokedexNumber(postedPokemonName_global);
 
-    // 検索用ページのHTMLを読み込み、表示
+    if(getPokedexNumber(postedPokemonName_global) == -1){
+      hasErrorFlag = true;
+      // 検索用ページのHTMLを読み込み、表示
+      let page = "view_search";
+      return templete(page, "色違いゲットだぜ！");      
+    }
+    // 検索結果ページのHTMLを読み込み、表示
     let page = "view_search_result";
     return templete(page, "色違いゲットだぜ！");    
   }
@@ -697,7 +702,7 @@ function postLineMessage(trainerName, pokemonName, form="default") {
   // var trainerName = "テストトレーナー";
   // var pokemonName = "テストポケモン";
 
-  if(!form){
+  if(form == "default"){
     var messageText = trainerName + "が" + pokemonName + "のいろちがいを登録したよ！";
   }else{
     var messageText = trainerName + "が" + pokemonName + "の" + form +"のいろちがいを登録したよ！";
@@ -706,7 +711,7 @@ function postLineMessage(trainerName, pokemonName, form="default") {
 
   // const url = 'https://api.line.me/v2/bot/message/push';     // プッシュメッセージ
   const url = 'https://api.line.me/v2/bot/message/broadcast';   // ブロードキャストメッセージ
-  // const token = 'xxxx';                                      // チャネルアクセストークン
+  // const token = 'xxxx';      // チャネルアクセストークン
 
   const payload = {
     // to: "xxxx",                                              // プッシュメッセージの宛先(xxxx:ユーザーID)

@@ -692,13 +692,17 @@ function getPokemonInfo(pokedexNumber, neededInfo, form="default"){
 }
 
 // LINEでメッセージ送信
-function postLineMessage(trainerName, pokemonName) {
+function postLineMessage(trainerName, pokemonName, form="default") {
   // // テスト用変数
   // var trainerName = "テストトレーナー";
   // var pokemonName = "テストポケモン";
 
-  var messageText = trainerName + "が" + pokemonName + "のいろちがいを登録したよ！";
-  // console.log(messageText);
+  if(!form){
+    var messageText = trainerName + "が" + pokemonName + "のいろちがいを登録したよ！";
+  }else{
+    var messageText = trainerName + "が" + pokemonName + "の" + form +"のいろちがいを登録したよ！";
+  }
+
 
   // const url = 'https://api.line.me/v2/bot/message/push';     // プッシュメッセージ
   const url = 'https://api.line.me/v2/bot/message/broadcast';   // ブロードキャストメッセージ

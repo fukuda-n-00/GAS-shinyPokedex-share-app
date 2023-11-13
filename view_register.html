@@ -53,7 +53,8 @@
             のいろちがいをゲットした！<br>
             スプレッドシートへの入力が完了したよ！
           </p>
-          <!-- LINEにメッセージを送信 --> 
+          <!-- LINEにメッセージを送信 -->
+          <? postLineMessage(postedTrainerName, postedPokemonName); ?>
         <? }else{ ?>
         <!-- 入手済みポケモンを登録しようとした時メッセージを表示 -->
           <? var postedPokemonId = getRegisteredPokemonId(); ?>
@@ -118,7 +119,8 @@
             のいろちがいをゲットした！<br>
             スプレッドシートへの入力が完了したよ！ <br>
           </p>
-          <!-- LINEにメッセージを送信 --> 
+          <!-- LINEにメッセージを送信 -->
+          <? postLineMessage(postedTrainerName, postedPokemonName, postedForm); ?> 
         <? }else{ ?>
           <!-- 入手済みポケモンを登録しようとした時メッセージを表示 -->
           <p class="form-input-error">

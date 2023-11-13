@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <?!= HtmlService.createHtmlOutputFromFile('css_main').getContent(); ?>
+  </head>
+  <body>
+    <!-- タイトル -->
+    <header>
+    </header>
+
+    <p class="page-title">登録</p>
+    <hr class="page-divider" />
+
+    <!-- メイン -->
+    <div class="page-cover">
+      
+      <!-- 入力欄 -->
+      <? if(!checkHasDifferentForms()){ ?>
+      <div class="form-cover">
+        <form id="inputForm" method="post" action="<?= getAppUrl() ?>">
+          <div class="form-input-title">ポケモン名</div>
+          <input class="input-pokemon-name" type="text" id="pokemon_name" name="pokemon_name" required><br>
+          <div class="form-input-title">トレーナー</div>
+          <div class="input-trainer-name">
+            <input class="trainer-select-button" type="radio" id="trainer_name_1" name="trainer_name" value="トレーナー1"> 
+            <div class="trainer-select-text">トレーナー1</div>
+            <input class="trainer-select-button" type="radio" id="trainer_name_2" name="trainer_name" value="トレーナー2"> 
+            <div class="trainer-select-text">トレーナー2</div>
+            <input class="trainer-select-button" type="radio" id="trainer_name_3" name="trainer_name" value="テスト用"> 
+            <div class="trainer-select-text">テスト用</div><br>
+          </div>
+          <input type="hidden" name="action_type" value="register_pokemons_normal" />
+          <button type="submit" class="input-submit-button">ゲット！</button>
+        </form>
+      </div>
+      <? } ?>
+
+      <!-- 入力された情報に合わせてメッセージや追加の入力欄を表示 -->
+      <!-- 入力成功時にメッセージを表示 -->
+      <? if(checkRegistered() && !checkHasDifferentForms()){ ?>
+        <? if(!checkAlreadyHave()){ ?>
+          <? var postedPokemonId = getRegisteredPokemonId(); ?>
+          <? var postedTrainerName = getTrainerName(); ?>
+          <? var postedPokemonName = getPokemonInfo(postedPokemonId, "pokemonName"); ?>
+          <p class="form-input-success">
+            <?= postedTrainerName ?>
+            が
+            <!-- 図鑑番号
+            <?= postedPokemonId ?>
+            の -->
+            <?= postedPokemonName ?>
+            のいろちがいをゲットした！<br>
+            スプレッドシートへの入力が完了したよ！
+          </p>
+          <!-- LINEにメッセージを送信 --> 
+        <? }else{ ?>
+        <!-- 入手済みポケモンを登録しようとした時メッセージを表示 -->
+          <? var postedPokemonId = getRegisteredPokemonId(); ?>
+          <? var postedTrainerName = getTrainerName(); ?>
+          <? var postedPokemonName = getPokemonInfo(postedPokemonId, "pokemonName"); ?>      
+          <p class="form-input-error">
+            <?= postedTrainerName ?>
+            は
+            <?= postedPokemonName ?>
+            のいろちがいをすでにゲットしているよ
+          </p>
+        <? } ?>
+      <? } ?>
+
+      <!-- 正しい形式で受け取ったポケモンにすがたちがいがいる場合候補を表示 -->
+      <? if(getRegisteredPokemonId() && checkHasDifferentForms()){ ?>
+        <? var postedPokemonId = getRegisteredPokemonId(); ?>
+        <? var postedTrainerName = getTrainerName(); ?>
+        <? var postedPokemonName = getPokemonInfo(postedPokemonId, "pokemonName"); ?>  
+        <div class="form-cover">
+          <form id="inputForm" method="post" action="<?= getAppUrl() ?>">
+            <input type="hidden" name="pokemon_id" value="<?= postedPokemonId ?>" />
+            <input type="hidden" name="trainer_name" value="<?= postedTrainerName ?>" />
+            <div class="form-input-title">
+              <?= postedTrainerName ?>がゲットした<?= postedPokemonName ?>のすがた              
+            </div>          
+            <div class="input-trainer-name">
+              <?
+                var list = getPokemonInfo(postedPokemonId, "listOfDifferentForms");
+                for (var i = 0; i <= list.length - 1; i++) {
+              ?>
+                <input class="trainer-select-button" type="radio" id="form_<?= i ?>" name="form" value="<?= list[i]['form'] ?>" /> 
+                <div class="trainer-select-text"><?= list[i]['form'] ?></div>
+              <? } ?>
+            </div>
+            <input type="hidden" name="action_type" value="register_pokemons_differentForms" />
+            <button type="submit" class="input-submit-button">登録！</button>
+          </form>
+          <form id="inputForm" method="get" action="<?= getAppUrl() ?>">
+            <input type="hidden" name="page" value="view_register" />
+            <button type="submit" class="input-back-button">もどる</button>
+          </form>           
+        </div>
+      <? } ?>
+
+      <!-- すがたちがいのポケモン入力成功時にメッセージを表示 -->
+      <? if(getForm()){ ?>
+        <? var postedPokemonId = getRegisteredPokemonId(); ?>
+        <? var postedTrainerName = getTrainerName(); ?>
+        <? var postedPokemonName = getPokemonInfo(postedPokemonId, "pokemonName"); ?>
+        <? var postedForm = getForm(); ?>      
+        <? if(!checkAlreadyHave()){ ?>
+          <p class="form-input-success">
+            <?= postedTrainerName ?>
+            が
+            <!-- 図鑑番号
+            <?= postedPokemonId ?>
+            の -->
+            <?= postedPokemonName ?>
+            の
+            <?= postedForm ?>
+            のいろちがいをゲットした！<br>
+            スプレッドシートへの入力が完了したよ！ <br>
+          </p>
+          <!-- LINEにメッセージを送信 --> 
+        <? }else{ ?>
+          <!-- 入手済みポケモンを登録しようとした時メッセージを表示 -->
+          <p class="form-input-error">
+            <?= postedTrainerName ?>
+            は
+            <?= postedPokemonName ?>
+            の
+            <?= postedForm ?>
+            のいろちがいをすでにゲットしているよ
+          </p>
+        <? } ?>
+      <? } ?>
+
+      <!-- 入力失敗時にエラーメッセージを表示 -->
+      <? var hasInputError = checkInputError(); ?>
+      <? if(hasInputError && !checkAlreadyHave()) { ?>
+        <p class="form-input-error">
+          登録に失敗しました<br>
+          ポケモン名とトレーナー名を正しく入力してください
+        </p>
+      <? } ?>
+
+    </div>
+
+    <!-- フッター -->
+    <footer>
+      <div class="footer-menu">
+        <nav>
+          <ul>
+            <li><a href = "<?= getAppUrl() ?>">&gt;検索</a></li>
+            <li><a href = "<?= getAppUrl() ?>?page=view_register">&gt;登録</a></li>
+            <li><a href = "<?= getAppUrl() ?>?page=view_delete">&gt;削除</a></li>
+          </ul>
+        </nav>
+        </div>
+      <div class="footer-copy">
+        <p>
+          ポケットモンスター・ポケモン・Pokémonは
+          <a class="rights" href="https://www.nintendo.co.jp/index.html" target="_blank">任天堂</a>
+          ・
+          <a class="rights" href="https://www.creatures.co.jp/" target="_blank">クリーチャーズ</a>
+          ・
+          <a class="rights" href="https://www.gamefreak.co.jp/" target="_blank">ゲームフリーク</a>の登録商標です。
+          当サイトは個人ファンサイトであり、
+          <a class="rights" href="https://corporate.pokemon.co.jp/" target="_blank">株式会社ポケモン</a>
+          他企業様とは一切関係ありません。下記はサイト独自のソースコードに関する著作権を示すものです。<br>
+          &copy; 2023 Fukuda Nagisa
+        </p>
+      </div>
+    </footer>   
+  </body>
+</html>

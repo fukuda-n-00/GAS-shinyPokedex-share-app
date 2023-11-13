@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <?!= HtmlService.createHtmlOutputFromFile('css_main').getContent(); ?>
+  <title>Login</title>
+</head>
+  <!-- ヘッダー -->
+  <header>
+  </header>
+
+  <!-- ボディ -->
+  <body>
+
+    <!-- タイトル -->
+    <p class="page-title">検索</p>
+    <hr class="page-divider" />
+
+    <!-- メイン -->  
+    <div class="page-cover">
+      
+      <!-- 入力欄 -->
+      <div class="form-cover">
+        <form id="inputForm" method="post" action="<?= getAppUrl() ?>">
+          <div class="form-input-title">ポケモン名</div>
+          <input class="input-pokemon-name" type="text" id="pokemon_name" name="pokemon_name" required><br>
+          <input type="hidden" name="action_type" value="search" />
+          <button type="submit" class="input-submit-button">検索</button>
+        </form>
+      </div>
+
+    </div>
+
+    <!-- フッター -->
+    <footer>
+      <div class="footer-menu">
+        <nav>
+          <ul>
+            <li><a href = "<?= getAppUrl() ?>">&gt;検索</a></li>
+            <li><a href = "<?= getAppUrl() ?>?page=view_register">&gt;登録</a></li>
+            <li><a href = "<?= getAppUrl() ?>?page=view_delete">&gt;削除</a></li>
+          </ul>
+        </nav>
+        </div>
+      <div class="footer-copy">
+        <p>
+          ポケットモンスター・ポケモン・Pokémonは
+          <a class="rights" href="https://www.nintendo.co.jp/index.html" target="_blank">任天堂</a>
+          ・
+          <a class="rights" href="https://www.creatures.co.jp/" target="_blank">クリーチャーズ</a>
+          ・
+          <a class="rights" href="https://www.gamefreak.co.jp/" target="_blank">ゲームフリーク</a>の登録商標です。
+          当サイトは個人ファンサイトであり、
+          <a class="rights" href="https://corporate.pokemon.co.jp/" target="_blank">株式会社ポケモン</a>
+          他企業様とは一切関係ありません。下記はサイト独自のソースコードに関する著作権を示すものです。<br>
+          &copy; 2023 Fukuda Nagisa
+        </p>
+      </div>
+    </footer> 
+  </body>
+</html>

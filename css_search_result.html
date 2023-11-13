@@ -1,0 +1,50 @@
+<style>
+  /* テーブル */
+  table{
+    margin:auto;                    // テーブルを中央寄せ
+    background-color: #FFFFFF;
+    border-collapse:  collapse;     // セルの線を重ねる
+  }
+  th{
+    background-color: #DDEEFF;
+  }
+  th, td{
+    padding: 5px;
+    border: solid 1px;              // 枠線指定
+    text-align: center;
+  }
+
+  /* 検索結果の表から登録するためのボタン */
+  .search-result-button{
+    color: #333333;
+  }
+  .search-result-button:hover{
+    color: #8DA0B6;
+  }
+
+  /* 「xxを検索しました」メッセージに吹き出しをつける */
+  .search-message{
+    color: #FFFFFF;
+    width: fit-content;
+    text-align: center;
+    margin: 15px auto;
+    position: relative;
+    padding: 5px 10px;
+    background-color: #8DA0B6;
+    border-radius: 5px; 
+  }
+
+  .search-message::before{
+    content: '';
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    left: 20px;
+    bottom: -10px;
+    border-top: 10px solid #8DA0B6;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+  }  
+  
+</style>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <?!= HtmlService.createHtmlOutputFromFile('css_main').getContent(); ?>
+  <?!= HtmlService.createHtmlOutputFromFile('css_search_result').getContent(); ?>  
+  <title>Login</title>
+</head>
+  <body>
+    <header>
+    </header>
+
+    <!-- タイトル -->
+    <p class="page-title">検索結果</p>
+    <hr class="page-divider" />
+
+    <div class="page-cover">
+      <!-- テーブル -->
+      <? var pokemonName = getRegisteredPokemonName(); ?>
+      <? var pokedexId = getPokedexNumber(pokemonName); ?>
+      <? if (!getSearchAll()){ ?>
+      <? var pokemonList = getStatusList(pokemonName); ?>
+      <? } ?>
+      <? if (getSearchAll()){ ?>
+      <? var pokemonList = getSameSpeciesList(pokedexId); ?>
+      <? } ?>        
+      <? var totalTrainers  = pokemonList[0].status.length; ?>
+      <? var amountOfDifferentForms = getPokemonInfo(pokedexId, "amountOfDifferentForms"); ?>
+
+      <div class="search-message">
+      <p>
+        <? if (!getSearchAll()){ ?>
+          <?= pokemonName ?>を検索しました！
+        <? } ?>
+        <? if (getSearchAll()){ ?>
+          <?= pokemonName ?>の進化系列を検索しました！
+        <? } ?>        
+      </p>
+      </div>
+      
+      <table>
+        <tr>
+          <th></th>
+          <th>すがた</th>
+          <th>トレーナー1</th>
+          <th>トレーナー2</th>
+          <th>テスト用</th>                    
+        </tr>
+        <? for(var index = 0; index < pokemonList.length; index++){?>
+          <tr>
+            <th>
+              <?= getPokemonInfo(pokemonList[index].pokedexId, "pokemonName") ?>
+            </th>
+            <td>
+              <!-- 姿違いがないとき「すがた」欄に何も書かない -->
+              <? if(!pokemonList[index].form){ ?>
+              <? } ?>
+              <!-- 姿違いがあるとき「すがた」欄に姿を記入 -->
+              <? if(pokemonList[index].form){ ?>
+                <?= pokemonList[index].form ?>
+              <? } ?>              
+            </td>
+            <? for(var i = 0; i < totalTrainers; i ++){ ?>
+              <? 
+                if(i == 0){
+                  var trainer_name = "トレーナー1";
+                }else if(i == 1){
+                  var trainer_name = "トレーナー2";
+                }else if(i == 2){
+                  var trainer_name = "テスト用";
+                }
+              ?>
+              <td>
+                <!-- 未登録なら「ー」 -->
+                <? if(pokemonList[index].status[i] != "〇"){ ?>
+                    <!-- すがたちがいなし -->
+                    <? if(!pokemonList[index].form){ ?>
+                      <form onsubmit="return showConfirmation('ー', '<?= getPokemonInfo(pokemonList[index].pokedexId, "pokemonName") ?>', '<?= pokemonList[index].form ?>')" method="post" action="<?= getAppUrl() ?>">
+                        <input type="hidden" name="searched_pokemon_name" value="<?= pokemonName ?>" />
+                        <input type="hidden" name="pokemon_name" value="<?= getPokemonInfo(pokemonList[index].pokedexId, "pokemonName") ?>" />
+                        <input type="hidden" name="trainer_name" value="<?= trainer_name ?>" />
+                        <input type="hidden" name="action_type" value="register_pokemons_normal" />
+                        <input type="hidden" name="action_type_detail" value="from_search_result" />
+                        <? if (getSearchAll()){ ?>
+                          <input type="hidden" name="searchAll" value=true />
+                        <? } ?>
+                        <button class="search-result-button" type="submit">ー</button>
+                      </form> 
+                    <!-- すがたちがいあり -->                     
+                    <? }else{ ?>
+                      <form onsubmit="return showConfirmation('ー', '<?= getPokemonInfo(pokemonList[index].pokedexId, "pokemonName") ?>', '<?= pokemonList[index].form ?>')" method="post" action="<?= getAppUrl() ?>">
+                        <input type="hidden" name="searched_pokemon_name" value="<?= pokemonName ?>" />
+                        <input type="hidden" name="pokemon_id" value="<?= pokemonList[index].pokedexId ?>" />
+                        <input type="hidden" name="trainer_name" value="<?= trainer_name ?>" />
+                        <input type="hidden" name="form" value="<?= pokemonList[index].form ?>" />
+                        <input type="hidden" name="action_type" value="register_pokemons_differentForms" />
+                        <input type="hidden" name="action_type_detail" value="from_search_result" />
+                        <? if (getSearchAll()){ ?>
+                          <input type="hidden" name="searchAll" value=true />
+                        <? } ?>                        
+                        <button class="search-result-button" type="submit">ー</button>
+                      </form> 
+                    <? } ?>
+                <!-- 登録済みなら「〇」 -->
+                <? }else{ ?>
+                    <!-- すがたちがいなし -->
+                    <? if(!pokemonList[index].form){ ?>
+                      <form onsubmit="return showConfirmation('〇', '<?= getPokemonInfo(pokemonList[index].pokedexId, "pokemonName") ?>', '<?= pokemonList[index].form ?>')" method="post" action="<?= getAppUrl() ?>">
+                        <input type="hidden" name="searched_pokemon_name" value="<?= pokemonName ?>" />
+                        <input type="hidden" name="delete_pokemon_name" value="<?= getPokemonInfo(pokemonList[index].pokedexId, "pokemonName") ?>" />
+                        <input type="hidden" name="trainer_name" value="<?= trainer_name ?>" />
+                        <input type="hidden" name="action_type" value="delete_pokemons_normal" />
+                        <input type="hidden" name="action_type_detail" value="from_search_result" />
+                        <? if (getSearchAll()){ ?>
+                          <input type="hidden" name="searchAll" value=true />
+                        <? } ?>
+                        <button class="search-result-button" type="submit">〇</button>
+                      </form>                      
+                    <!-- すがたちがいあり -->                     
+                    <? }else{ ?>
+                      <form onsubmit="return showConfirmation('〇', '<?= getPokemonInfo(pokemonList[index].pokedexId, "pokemonName") ?>', '<?= pokemonList[index].form ?>')" method="post" action="<?= getAppUrl() ?>">
+                        <input type="hidden" name="searched_pokemon_name" value="<?= pokemonName ?>" />
+                        <input type="hidden" name="pokemon_id" value="<?= pokemonList[index].pokedexId ?>" />
+                        <input type="hidden" name="trainer_name" value="<?= trainer_name ?>" />
+                        <input type="hidden" name="form" value="<?= pokemonList[index].form ?>" />
+                        <input type="hidden" name="action_type" value="delete_pokemons_differentForms" />
+                        <input type="hidden" name="action_type_detail" value="from_search_result" />
+                        <? if (getSearchAll()){ ?>
+                          <input type="hidden" name="searchAll" value=true />
+                        <? } ?>
+                        <button class="search-result-button" type="submit">〇</button>
+                      </form>                     
+                    <? } ?>                                   
+                <? } ?>
+              </td>
+            <? } ?>
+          </tr>          
+         <? } ?> 
+        <script>
+          function showConfirmation(value, pokemonName, pokemonForm) {
+            if(value == "ー"){
+              if(!pokemonForm){
+                var result = confirm(pokemonName + 'を登録しますか?');
+              }else{
+                var result = confirm(pokemonName + 'の' + pokemonForm + 'を登録しますか?');
+              }              
+            }else{
+              if(!pokemonForm){
+                var result = confirm(pokemonName + 'を削除しますか?');
+              }else{
+                var result = confirm(pokemonName + 'の' + pokemonForm + 'を削除しますか?');
+              }              
+            }            
+            if(result){
+              return true;
+            }else{
+              return false;
+            }
+          }
+        </script>         
+      </table>
+      <!--------------------------------------------------------------->
+      <!-- ボタン -->
+      <? if (!getSearchAll()){ ?>
+        <form id="inputForm" method="post" action="<?= getAppUrl() ?>">
+          <input type="hidden" name="action_type" value="search_all" />
+          <input type="hidden" name="pokemon_name" value="<?= pokemonName ?>" />
+          <button type="submit" class="input-submit-button">進化系も検索</button>
+        </form>
+        <form id="inputForm" method="post" action="<?= getAppUrl() ?>">
+          <button type="submit" class="input-back-button">もどる</button>
+        </form>        
+      <? }else{ ?>
+        <form id="inputForm" method="post" action="<?= getAppUrl() ?>">
+          <input type="hidden" name="action_type" value="search" />
+          <input type="hidden" name="pokemon_name" value="<?= pokemonName ?>" />
+          <button type="submit" class="input-back-button">もどる</button>
+        </div>  
+      <? } ?>
+      <!-- ボタンおわり -->         
+
+      <!-- 入力された情報に合わせてメッセージや追加の入力欄を表示 -->
+      <!-- 入力成功時にメッセージを表示 -->
+      <? if(checkRegistered()){ ?>
+        <? if(!checkHasDifferentForms()){ ?>
+            <? var postedPokemonId = getRegisteredPokemonId(); ?>
+            <? var postedTrainerName = getTrainerName(); ?>
+            <? var postedPokemonName = getPokemonInfo(postedPokemonId, "pokemonName"); ?>
+            <p class="form-input-success">
+              <?= postedTrainerName ?>
+              が
+              <!-- 図鑑番号
+              <?= postedPokemonId ?>
+              の -->
+              <?= postedPokemonName ?>
+              のいろちがいをゲットした！<br>
+              スプレッドシートへの入力が完了したよ！
+            </p>
+            <!-- LINEにメッセージを送信 --> 
+        <!-- すがたちがいのポケモン入力成功時にメッセージを表示 -->
+        <? }else{ ?>
+          <? var postedPokemonId = getRegisteredPokemonId(); ?>
+          <? var postedTrainerName = getTrainerName(); ?>
+          <? var postedPokemonName = getPokemonInfo(postedPokemonId, "pokemonName"); ?>
+          <? var postedForm = getForm(); ?>      
+            <p class="form-input-success">
+              <?= postedTrainerName ?>
+              が
+              <!-- 図鑑番号
+              <?= postedPokemonId ?>
+              の -->
+              <?= postedPokemonName ?>
+              の
+              <?= postedForm ?>
+              のいろちがいをゲットした！<br>
+              スプレッドシートへの入力が完了したよ！ <br>
+            </p>
+            <!-- LINEにメッセージを送信 --> 
+        <? } ?>
+      <? } ?>
+
+      <!-- 入力された情報に合わせてメッセージや追加の入力欄を表示 -->
+     <!-- 削除成功時にメッセージを表示 -->
+     <? if(checkDeleted()){ ?>
+        <? if(!checkHasDifferentForms()){ ?>
+            <? var postedPokemonId = getRegisteredPokemonId(); ?>
+            <? var postedTrainerName = getTrainerName(); ?>
+            <? var postedPokemonName = getPokemonInfo(postedPokemonId, "pokemonName"); ?>
+          <p class="form-input-success">
+            <?= postedTrainerName ?>
+            の
+            <?= postedPokemonName ?>
+            のいろちがいの入手情報をスプレッドシートから削除したよ
+          </p>
+            <!-- LINEにメッセージを送信(不要かも) -->       
+        <!-- すがたちがいのポケモン入力成功時にメッセージを表示 -->
+        <? }else{ ?>
+          <? var postedPokemonId = getRegisteredPokemonId(); ?>
+          <? var postedTrainerName = getTrainerName(); ?>
+          <? var postedPokemonName = getPokemonInfo(postedPokemonId, "pokemonName"); ?>
+          <? var postedForm = getForm(); ?>      
+            <p class="form-input-success">
+              <?= postedTrainerName ?>
+              が
+              <!-- 図鑑番号
+              <?= postedPokemonId ?>
+              の -->
+              <?= postedPokemonName ?>
+              の
+              <?= postedForm ?>
+              のいろちがいの入手情報をスプレッドシートから削除したよ<br>
+            </p>
+            <!-- LINEにメッセージを送信(不要かも) -->
+        <? } ?>
+      <? } ?> 
+      
+
+    </div>  
+
+    <!-- フッター -->
+    <footer>
+      <div class="footer-menu">
+        <nav>
+          <ul>
+            <li><a href = "<?= getAppUrl() ?>">&gt;検索</a></li>
+            <li><a href = "<?= getAppUrl() ?>?page=view_register">&gt;登録</a></li>
+            <li><a href = "<?= getAppUrl() ?>?page=view_delete">&gt;削除</a></li>
+          </ul>
+        </nav>
+        </div>
+      <div class="footer-copy">
+        <p>
+          ポケットモンスター・ポケモン・Pokémonは
+          <a class="rights" href="https://www.nintendo.co.jp/index.html" target="_blank">任天堂</a>
+          ・
+          <a class="rights" href="https://www.creatures.co.jp/" target="_blank">クリーチャーズ</a>
+          ・
+          <a class="rights" href="https://www.gamefreak.co.jp/" target="_blank">ゲームフリーク</a>の登録商標です。
+          当サイトは個人ファンサイトであり、
+          <a class="rights" href="https://corporate.pokemon.co.jp/" target="_blank">株式会社ポケモン</a>
+          他企業様とは一切関係ありません。下記はサイト独自のソースコードに関する著作権を示すものです。<br>
+          &copy; 2023 Fukuda Nagisa
+        </p>
+      </div>
+    </footer> 
+  </body>
+</html>

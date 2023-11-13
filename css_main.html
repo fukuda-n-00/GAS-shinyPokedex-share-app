@@ -1,0 +1,228 @@
+<style>
+  @charset "utf-8";
+  @import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap);
+  @import url(https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap);
+
+  /* ===== 雛形 ===== */  
+  html,
+  body {
+    background-color: #F4F5F7;
+    font-family: Roboto, 'Noto Sans JP', sans-serif;
+    color: #777777;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  a {
+    color: #777777;
+    text-decoration: none;
+  }
+  a:hover {
+    color: #333333;
+  }
+  button,
+  input,
+  textarea {
+    font-family: inherit;
+    box-sizing: border-box;
+  }
+  button {
+    background-color: initial;
+    border: initial;
+    cursor: pointer;
+    outline: initial;
+    padding: initial;
+    appearance: initial;
+    -webkit-appearance: none;
+    border-radius: initial;
+    font-size: inherit;
+  }
+  p {
+    margin: 0;
+    padding: 0;
+  }
+  /* フッター */
+  body > footer{
+    position: sticky;
+    top: 100vh;
+  }
+  footer{
+    width: 100%;
+    background-color: #8DA0B6;
+    color: #FFFFFF;
+    bottom: 0;
+    left: 0;
+    padding: 5px 0px;
+    display: flex;
+    flex-direction: column;
+  } 
+  .footer-menu{
+    width: 100vw;
+  }
+  footer ul{
+    display: flex;
+    justify-content: center;
+  }
+  footer li{ 
+    list-style: none;
+  }
+  footer a{
+    margin-right: 20px;
+    color: #FFFFFF;
+  }
+  .footer-copy{
+    width: 100vw;
+    margin-top: 20px;
+    margin-right: 15px;
+    font-size: 0.5rem;
+    text-align: center;
+  }
+  .rights{
+    margin-right: 0px;
+    text-decoration: underline;
+  }
+  .dev{
+    /* text-align: center; */
+    padding: 10px;
+  }    
+
+  /* ===== ページ要素 ===== */
+  .page-cover {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .page-title {
+    text-align: center;
+    padding: 10px 0;
+    margin: 0 auto;
+    font-weight: bold;
+    font-size: 25px;
+  }
+  .page-divider {
+    width: 80%;
+    max-width: 500px;
+    margin: 0 auto 20px auto;
+    height: 2px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: none;
+  }
+
+  /* ===== 入力フォーム ===== */
+  .form-cover {
+    margin: 0 auto;
+    width: 90%;
+  }
+  .form-input-title {
+    font-size: 0.875rem;
+    padding: 10px;
+  }
+  .form-input-error {
+    color: #bb1850;
+    font-size: 0.875rem;
+    padding: 50px 10px;
+    text-align: center;
+  }
+  .form-input-success{
+    color: #005FA7;
+    font-size: 0.875rem;
+    padding: 50px 10px;
+    text-align: center;
+  }
+  .input-pokemon-name {
+    font-size: 16px;
+    width: 100%;
+    height: 2em;
+    border: 1px solid rgba(236, 234, 234, 0.5);
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  .input-trainer-name {
+    background-color : #FFFFFF;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+    height: 2em;
+    display: flex; /* フレックスコンテナとして設定 */
+    align-items: center; /* 垂直方向の中央揃えを行う */
+    padding: 10px 0px;
+  }
+
+  .trainer-select-button{
+  }
+
+  .trainer-select-text{
+    margin-right: 10px;
+  }
+
+  .input-submit-button {
+    background-color: #333333;
+    border: 2px solid #333333;
+    color: #ffffff;
+    margin: 15px auto;
+    padding: 5px;
+    display: block;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 200px;
+  }
+  .input-submit-button:hover {
+    background-color: #ffffff;
+    border: 2px solid #8DA0B6;
+    color: #8DA0B6;
+  }
+  .input-back-button {
+    background-color: #333333;
+    border: 2px solid #333333;
+    color: #ffffff;
+    margin: 15px auto;
+    padding: 5px;
+    display: block;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 200px;
+  }
+  .input-back-button:hover {
+    background-color: #ffffff;
+    border: 2px solid #585858;
+    color: #585858;
+  }  
+
+  /* ===== レスポンシブ設定 ===== */
+  @media screen and (min-width: 0px) and (max-width: 414px){
+    /* ===== 雛形 ===== */
+    html,
+    body {
+      padding: 50px auto 0px auto;
+    }    
+
+    /* ===== ページ要素 ===== */
+    .page-cover {
+      /* margin: 200px auto 0px auto; */
+    }
+    /* ===== フッター ===== */
+    footer{
+      max-width: 100%;
+      font-size: 11px;
+    }
+    footer nav{
+      width: 100%;
+      /* display: flex; */
+      font-size: 15px;
+    }
+    footer ul{
+      /* display: flex; */
+      /* justify-content: space-between; */
+      padding: 0px;
+    }
+    footer li{
+      padding: 0px 0px;
+    }
+    footer a{
+      margin: 0px 10px;
+    }
+    .footer-copy{
+      padding: 8px 0 0 0;
+    }
+  }
+
+</style>

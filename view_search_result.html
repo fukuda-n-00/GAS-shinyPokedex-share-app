@@ -30,11 +30,12 @@
       <div class="search-message">
       <p>
         <? if (!getSearchAll()){ ?>
-          <?= pokemonName ?>を検索しました！
+          <?= pokemonName ?>を検索しました！<br>
         <? } ?>
         <? if (getSearchAll()){ ?>
-          <?= pokemonName ?>の進化系列を検索しました！
-        <? } ?>        
+          <?= pokemonName ?>の進化系列を検索しました！<br>
+        <? } ?>
+        「ー」「〇」をクリックすることで登録・削除できます        
       </p>
       </div>
       

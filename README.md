@@ -3,7 +3,7 @@
 (ポケットモンスター・ポケモン・Pokémonは任天堂・クリーチャーズ・ゲームフリークの登録商標です。 当Webアプリは個人ファンツールであり、 株式会社ポケモン他企業様とは一切関係ありません。)
 
 ## アプリURL（サンプル）
-アプリ： https://script.google.com/macros/s/AKfycbzgyZPorK2vECqgRQsjldP01-O2zReNWGhmRhOlhehW/dev
+アプリ： [https://script.google.com/macros/s/AKfycbzgyZPorK2vECqgRQsjldP01-O2zReNWGhmRhOlhehW/dev](https://script.google.com/macros/s/AKfycbxi9VAG8WH7moY-mJUZnyJf0eD5tm672NvlLrVzoI4htneODo1y4Y-DRdJJv3Jv_LfcJA/exec)
 <br>
 アプリからの通知がくるLINEアカウント登録用QRコード: https://qr-official.line.me/sid/L/855amudr.png
 

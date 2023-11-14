@@ -45,7 +45,7 @@
           <th>すがた</th>
           <th>トレーナー1</th>
           <th>トレーナー2</th>
-          <th>テスト用</th>                    
+          <!-- <th>テスト用</th>                     -->
         </tr>
         <? for(var index = 0; index < pokemonList.length; index++){?>
           <tr>
@@ -168,7 +168,7 @@
           <input type="hidden" name="pokemon_name" value="<?= pokemonName ?>" />
           <button type="submit" class="input-submit-button">進化系も検索</button>
         </form>
-        <form id="inputForm" method="post" action="<?= getAppUrl() ?>">
+        <form id="inputForm" method="get" action="<?= getAppUrl() ?>">
           <button type="submit" class="input-back-button">もどる</button>
         </form>        
       <? }else{ ?>

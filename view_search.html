@@ -31,7 +31,7 @@
 
       <!-- 入力失敗時にエラーメッセージを表示 -->
       <? var hasInputError = checkInputError(); ?>
-      <? if(hasInputError && !checkAlreadyHave()) { ?>
+      <? if(hasInputError) { ?>
         <p class="form-input-error">
           検索に失敗しました。
           ポケモン名を正しく入力してください。<br>

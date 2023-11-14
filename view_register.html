@@ -23,12 +23,12 @@
           <input class="input-pokemon-name" type="text" id="pokemon_name" name="pokemon_name" required><br>
           <div class="form-input-title">トレーナー</div>
           <div class="input-trainer-name">
-            <input class="trainer-select-button" type="radio" id="trainer_name_1" name="trainer_name" value="トレーナー1"> 
+            <input class="trainer-select-button" type="radio" id="trainer_name_1" name="trainer_name" value="トレーナー1" required> 
             <div class="trainer-select-text">トレーナー1</div>
             <input class="trainer-select-button" type="radio" id="trainer_name_2" name="trainer_name" value="トレーナー2"> 
             <div class="trainer-select-text">トレーナー2</div>
-            <input class="trainer-select-button" type="radio" id="trainer_name_3" name="trainer_name" value="テスト用"> 
-            <div class="trainer-select-text">テスト用</div><br>
+            <!-- <input class="trainer-select-button" type="radio" id="trainer_name_3" name="trainer_name" value="テスト用"> 
+            <div class="trainer-select-text">テスト用</div><br> -->
           </div>
           <input type="hidden" name="action_type" value="register_pokemons_normal" />
           <button type="submit" class="input-submit-button">ゲット！</button>
@@ -38,12 +38,12 @@
 
       <!-- 入力された情報に合わせてメッセージや追加の入力欄を表示 -->
       <!-- 入力成功時にメッセージを表示 -->
-      <? if(checkRegistered() && !checkHasDifferentForms()){ ?>
+      <? if(checkRegistered() && !checkHasDifferentForms() && !checkInputError()){ ?>
         <? if(!checkAlreadyHave()){ ?>
           <? var postedPokemonId = getRegisteredPokemonId(); ?>
           <? var postedTrainerName = getTrainerName(); ?>
           <? var postedPokemonName = getPokemonInfo(postedPokemonId, "pokemonName"); ?>
-          <p class="form-input-success">
+            <p class="form-input-success">
             <?= postedTrainerName ?>
             が
             <!-- 図鑑番号
@@ -86,7 +86,7 @@
                 var list = getPokemonInfo(postedPokemonId, "listOfDifferentForms");
                 for (var i = 0; i <= list.length - 1; i++) {
               ?>
-                <input class="trainer-select-button" type="radio" id="form_<?= i ?>" name="form" value="<?= list[i]['form'] ?>" /> 
+                <input class="trainer-select-button" type="radio" id="form_<?= i ?>" name="form" value="<?= list[i]['form'] ?>" required /> 
                 <div class="trainer-select-text"><?= list[i]['form'] ?></div>
               <? } ?>
             </div>

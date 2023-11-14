@@ -23,12 +23,12 @@
           <input class="input-pokemon-name" type="text" id="pokemon_name" name="delete_pokemon_name" required><br>
           <div class="form-input-title">トレーナー</div>
           <div class="input-trainer-name">
-            <input class="trainer-select-button" type="radio" id="trainer_name_1" name="trainer_name" value="トレーナー1"> 
+            <input class="trainer-select-button" type="radio" id="trainer_name_1" name="trainer_name" value="トレーナー1" required> 
             <div class="trainer-select-text">トレーナー1</div>
             <input class="trainer-select-button" type="radio" id="trainer_name_2" name="trainer_name" value="トレーナー2"> 
             <div class="trainer-select-text">トレーナー2</div>
-            <input class="trainer-select-button" type="radio" id="trainer_name_3" name="trainer_name" value="テスト用"> 
-            <div class="trainer-select-text">テスト用</div><br>
+            <!-- <input class="trainer-select-button" type="radio" id="trainer_name_3" name="trainer_name" value="テスト用"> 
+            <div class="trainer-select-text">テスト用</div><br> -->
           </div>
           <input type="hidden" name="action_type" value="delete_pokemons_normal" />
           <button type="submit" class="input-submit-button">削除</button>
@@ -38,7 +38,7 @@
 
       <!-- 入力された情報に合わせてメッセージや追加の入力欄を表示 -->
      <!-- 削除成功時にメッセージを表示 -->
-      <? if(checkDeleted() && !checkHasDifferentForms()){ ?>
+      <? if(checkDeleted() && !checkHasDifferentForms() && !checkInputError()){ ?>
         <? if(!checkDontHave()){ ?>
           <? var postedPokemonId = getRegisteredPokemonId(); ?>
           <? var postedTrainerName = getTrainerName(); ?>

@@ -10,6 +10,7 @@
   - [各シート（テーブル）の説明](#各シートテーブルの説明)
 - [こだわりポイント](#こだわりポイント)
 - [課題](#課題)
+- [今後の展望](#今後の展望)
 
 ## アプリURL（サンプル）
 アプリ： [https://script.google.com/macros/s/AKfycbzgyZPorK2vECqgRQsjldP01-O2zReNWGhmRhOlhehW/dev](https://script.google.com/macros/s/AKfycbxi9VAG8WH7moY-mJUZnyJf0eD5tm672NvlLrVzoI4htneODo1y4Y-DRdJJv3Jv_LfcJA/exec)

@@ -710,7 +710,7 @@ function postLineMessage(trainerName, pokemonName, form="default") {
 
   // const url = 'https://api.line.me/v2/bot/message/push';     // プッシュメッセージ
   const url = 'https://api.line.me/v2/bot/message/broadcast';   // ブロードキャストメッセージ
-  // const token = 'xxxx';      // チャネルアクセストークン
+  //const token = 'xxxx';      // チャネルアクセストークン
 
   const payload = {
     // to: "xxxx",                                              // プッシュメッセージの宛先(xxxx:ユーザーID)

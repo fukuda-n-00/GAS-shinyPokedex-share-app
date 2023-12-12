@@ -695,38 +695,3 @@ function getPokemonInfo(pokedexNumber, neededInfo, form="default"){
   // 
   return -1;
 }
-
-// LINEでメッセージ送信
-function postLineMessage(trainerName, pokemonName, form="default") {
-  // // テスト用変数
-  // var trainerName = "テストトレーナー";
-  // var pokemonName = "テストポケモン";
-
-  if(form == "default"){
-    var messageText = trainerName + "が" + pokemonName + "のいろちがいを登録したよ！";
-  }else{
-    var messageText = trainerName + "が" + pokemonName + "の" + form +"のいろちがいを登録したよ！";
-  }
-
-  // const url = 'https://api.line.me/v2/bot/message/push';     // プッシュメッセージ
-  const url = 'https://api.line.me/v2/bot/message/broadcast';   // ブロードキャストメッセージ
-  const token = '2Fbez+zkFSg6XjMGIV6r1S5WoHOqq0V+U0wfkp+UTS4Ia00NyAiLPelJPudOTF9kXmz8nV4BvztdNfI1SApDijtIpEyws1uts8reAuJCAx0p4Fgd5WHEf/6SPc6uiPW1DXixSqKVYVplDE1qjUuL7QdB04t89/1O/w1cDnyilFU=';      // チャネルアクセストークン
-
-  const payload = {
-    // to: "xxxx",                                              // プッシュメッセージの宛先(xxxx:ユーザーID)
-    messages: [
-      { type: 'text', text: messageText }
-    ]
-  };
-
-  const params = {
-    method: 'post',
-    contentType: 'application/json',
-    headers: {
-      Authorization: 'Bearer ' + token
-    },
-    payload: JSON.stringify(payload)
-  };
-
-  UrlFetchApp.fetch(url, params);
-}

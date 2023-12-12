@@ -76,15 +76,17 @@
             <div class="form-input-title">
               <?= postedTrainerName ?>が登録情報を削除する<?= postedPokemonName ?>のすがた              
             </div>          
-            <div class="input-trainer-name">
+            <div class="input-form-name">
               <?
                 var list = getPokemonInfo(postedPokemonId, "listOfDifferentForms");
                 for (var i = 0; i <= list.length - 1; i++) {
               ?>
-                <input class="trainer-select-button" type="radio" id="form_<?= i ?>" name="form" value="<?= list[i]['form'] ?>" /> 
-                <div class="trainer-select-text"><?= list[i]['form'] ?></div>
+                <label>
+                  <input class="form-select-button" type="radio" id="form_<?= i ?>" name="form" value="<?= list[i]['form'] ?>" required />
+                  <?= list[i]['form'] ?>
+                </label>
+                &emsp;                
               <? } ?>
-
             </div>
 
             <input type="hidden" name="action_type" value="delete_pokemons_differentForms" />
